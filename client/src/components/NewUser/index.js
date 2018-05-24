@@ -58,8 +58,8 @@ class NewUser extends Component{
                 <input class="input-textboxes" type="text" value = {this.state.pwd} onChange={this.pwdchange}/><br/>
                 <label class="labels">Pwd again:</label>
                 <input class="input-textboxes" type="text" value = {this.state.pwdcomfirm} onChange={this.pwdcomfirmchange}/><br/>
-                {/* <button class="buttons row-buttons" onClick ={this.getUserInfo} ><Link to="/">Add User</Link></button>   */}
-                <button class="buttons row-buttons" onClick ={this.getUserInfo} >Add User</button>  
+                <button class="buttons row-buttons" onClick ={this.getUserInfo} ><Link to="/">Add User</Link></button>  
+                {/* <button class="buttons row-buttons" onClick ={this.getUserInfo} >Add User</button>   */}
             </div>
         );
     }
