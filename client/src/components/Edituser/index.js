@@ -42,6 +42,7 @@ class EditUser extends Component{
                 <label className="labels">Pwd again:</label>
                 <input className="input-textboxes" type="text" value = {this.props.pwd}/><br/>
                 <button className="buttons" onClick ={this.getUserInfo} >Save User</button>  
+                {this.props.editUserCompleted && <Redirect to={{pathname: '/', state: {from: this.props.location} }}/>}
             </div>
         );
     }
@@ -53,6 +54,7 @@ const mapStateToProps = state => {
         lastname: state.editUserR.lastname,
         sex: state.editUserR.sex,
         age: state.editUserR.age,
+        editUserCompleted: state.myUserListR.editUserCompleted,
     }
 };
 

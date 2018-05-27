@@ -43,14 +43,17 @@ class NewUser extends Component{
                 <label className="labels">Pwd again:</label>
                 <input className="input-textboxes" type="text" value = {this.state.pwd}/><br/>
                 <button className="buttons" onClick ={this.getUserInfo} >Add User</button>  
-                {/* <Redirect to={{pathname: '/'}} /> */}
+                {this.props.newUserCompleted && <Redirect to={{pathname: '/'}}/>}
             </div>
         );
     }
 }
 
 const mapStateToProps = state => {
-    return {}
+    return {
+        hasError: state.myUserListR.hasError,
+        newUserCompleted: state.myUserListR.newUserCompleted,
+    }
 };
 
 function mapDispatchToProps(dispatch) {

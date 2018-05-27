@@ -7,7 +7,7 @@ import * as actions from '../../actions';
 import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
 
 class Home extends Component {
-    componentWillMount(){
+    componentDidMount(){
         console.log("home did mount")
         this.props.getAllUsers("http://localhost:8888/api/userlist/");
     }
@@ -23,6 +23,13 @@ class Home extends Component {
     }
     render() {
         console.log("home render")
+        if (this.props.hasErrored) {
+            return <p>Sorry! There was an error loading the items</p>;
+        }
+
+        if (this.props.dataLoading) {
+            return <p>Loading…</p>;
+        }
         return (
             <div className="div-container">
                 <SearchBar filterText={this.props.filterText} onFilterTextChange={this.handleFilterTextChange}/>
@@ -51,6 +58,8 @@ const mapStateToProps = state => {
         users: state.myUserListR.users,
         filterText: state.searchBarR.filterText,
         page: state.myUserListR.page,
+        hasErrored: state.myUserListR.hasError,
+        dataLoading: state.myUserListR.dataLoading,
     }
 };
 

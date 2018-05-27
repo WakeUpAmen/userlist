@@ -6,15 +6,25 @@ import {createStore, applyMiddleware} from 'redux';
 const initialState ={
     users: [],
     page: 1,
+    hasError: false,
+    dataLoading: false,
+    editUserCompleted: false,
+    newUserCompleted: false,
   };
 //reducer
 
 export const myUserListR =(state = initialState, action)=>{
     switch(action.type){       
         case 'GET_ALL':
-            console.log(action.data)
             return {...state, users: action.data};
-
+        case 'DATA_LOADING':
+            return {...state, dataLoading: action.val}
+        case 'GETDATA_ERROR':
+            return {...state, hasError: action.val};
+        case 'EDITUSER_COMPLETED':
+            return {...state, editUserCompleted: action.val};
+        case 'NEWUSER_COMPLETED':
+            return {...state, newUserCompleted: action.val};
         case 'SET_SORT':
             let arr5 = [];
             state.users.forEach(element => {

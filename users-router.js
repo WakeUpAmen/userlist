@@ -18,10 +18,8 @@ routerUsers.post('/userlist', (req, res) => {
     uu.pwd = req.body.pwd;
     uu.save(  err => {
         if (err) {
-            res.send(err);
-        };
-        console.log(res._id);
-        res.json(uu);
+            res.status(500).json({ error: err });
+        }
     });
         
 });
@@ -29,10 +27,10 @@ routerUsers.post('/userlist', (req, res) => {
 routerUsers.get('/userlist', (req, res) => {
     Users.find((err, users) => {
         if (err) {
-            res.send(err);
+            res.status(500).json({ error: err });
+        } else {
+            res.status(200).json({users});
         }
-        console.log(users)
-        res.json(users);
     });
 });
 
@@ -41,10 +39,10 @@ routerUsers.get('/userlist/:users_id', (req, res) => {
     console.log(req.params)
     Users.findById(req.params.users_id, (err, user) => {
         if (err) {
-            res.send(err);
+            res.status(500).json({ error: err });
+        } else {
+            res.status(200).json({user});
         }
-        console.log(user)
-        res.json(user);
     });
 });
 
@@ -62,8 +60,8 @@ routerUsers.put('/userlist/:users_id', (req, res) => {
         user.pwd = req.body.pwd;
         user.save(err =>  {
             if (err) {
-                res.send(err);
-            }
+                res.status(500).json({ error: err });
+            } 
             res.json({ message: 'User updated!' });
         });
 
@@ -76,8 +74,8 @@ routerUsers.delete('/userlist/:id', (req, res) => {
         _id: req.params.id
     }, (err, user) => {
         if (err) {
-            res.send(err);
-        }
+            res.status(500).json({ error: err });
+        } 
         res.json({ message: 'Successfully deleted' });
     });
 });

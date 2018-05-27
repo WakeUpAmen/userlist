@@ -1,40 +1,41 @@
 import axios from 'axios';
+//async functions
 export function getAllUsersFromServer(url) {
     return (dispatch) => {
-        console.log("action get allllll")
+        dispatch(dataLoading(true));
         axios.get(url)
         .then(response => {
-            console.log("action get all success")
-            console.log("response:"+response.data);
             dispatch(getAll(response.data));
+            dispatch(dataLoading(false));
         })
         .catch(err => {
-            console.log("action get all fail")
-            console.log(err);
-            window.alert("error");
+            dispatch(getDataError(true));
+            dispatch(dataLoading(false));
         });
     }
 }
 
 export function getOneUserById(url, id) {
     return (dispatch) => {
+        dispatch(dataLoading(true));
         axios.get(url, {
             id: id
         })
         .then((response) => {
-            console.log("reduce get user by id")
-            console.log(response.data);
             dispatch(getUserById(response.data));
+            dispatch(dataLoading(false));
         })
         .catch(err => {
-            console.log(err);
-            window.alert("error");
+            dispatch(getDataError(true));
+            dispatch(dataLoading(false));
         });
     }
 }
 
 export function addOneToServer(url, userdata) {
     return (dispatch) => {
+        dispatch(dataLoading(true));
+        dispatch(newUserCompleted(true));
         axios.post(url, {
             firstname: userdata.firstname,
             lastname: userdata.lastname,
@@ -43,17 +44,20 @@ export function addOneToServer(url, userdata) {
             pwd: userdata.pwd,
         })
         .then((response) => {
-            console.log(response.data);
+            dispatch(newUserCompleted(false));
+            dispatch(dataLoading(false));
         })
         .catch(err => {
-            console.log(err);
-            window.alert("error");
+            dispatch(getDataError(true));
+            dispatch(dataLoading(false));
         });
     }
 }
 
 export function updateOneToServer(url, userdata) {
     return (dispatch) => {
+        dispatch(dataLoading(true));
+        dispatch(editUserCompleted(true));
         axios.put(url, {
             _id : userdata._id,
             firstname: userdata.firstname,
@@ -64,10 +68,12 @@ export function updateOneToServer(url, userdata) {
         })
         .then((response) => {
             console.log(response.data);
+            dispatch(editUserCompleted(false));
+            dispatch(dataLoading(false));
         })
         .catch(err => {
-            console.log(err);
-            window.alert("error");
+            dispatch(getDataError(true));
+            dispatch(dataLoading(false));
         });
     }
 }
@@ -75,19 +81,21 @@ export function updateOneToServer(url, userdata) {
 export function deleteOneFromServer(url, id) {
     console.log(id);
     return (dispatch) => {
+        dispatch(dataLoading(true));
         axios.delete(url, {
             id:id,
         })
         .then((response) => {
             console.log(response.data);
+            dispatch(dataLoading(false));
         })
         .catch(err => {
-            console.log(err);
-            window.alert("error");
+            dispatch(getDataError(true));
+            dispatch(dataLoading(false));
         });
     }
 }
-
+// actions
 export const setSort ={
     type: 'SET_SORT',  
     str:""
@@ -135,3 +143,22 @@ export const getAll = data => ({
     type: 'GET_ALL', 
     data
 });
+
+export const getDataError = val=>({
+    type: 'GETDATA_ERROR',
+    val
+})
+
+export const dataLoading =val=>({
+    type: 'DATA_LOADING',
+    val
+})
+export const editUserCompleted =val=>({
+    type: 'EDITUSER_COMPLETED',
+    val
+})
+
+export const newUserCompleted =val=>({
+    type: 'NEWUSER_COMPLETED',
+    val
+})
