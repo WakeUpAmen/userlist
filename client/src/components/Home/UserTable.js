@@ -16,11 +16,13 @@ class UserTable extends Component {
         const rows = [];
         let start = (page - 1) * 5;
         let end = page * 5;
+        console.log("table users")
+        console.log(this.props.users)
         this.props.users.forEach((user) => {
             if (user.firstname.indexOf(filterText) !== -1 ) {
                 rows.push( <UserRow 
                                 editRow={this.props.editRowCallBack} 
-                                deleteRow ={this.props.deleteRowCallBack} 
+                                deleteRow ={this.props.deleteOneUser} 
                                 _id ={user._id} 
                                 firstname ={user.firstname}
                                 lastname ={user.lastname} 

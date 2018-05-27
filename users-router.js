@@ -31,6 +31,7 @@ routerUsers.get('/userlist', (req, res) => {
         if (err) {
             res.send(err);
         }
+        console.log(users)
         res.json(users);
     });
 });

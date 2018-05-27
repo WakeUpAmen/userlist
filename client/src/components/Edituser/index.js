@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
-import * as actions from '../../Reducers';
+import * as actions from '../../actions';
 import {connect} from 'react-redux';
 
 class EditUser extends Component{
@@ -28,20 +28,20 @@ class EditUser extends Component{
     }
     render (){
         return(
-            <div className=".div-container">
-                <label>First Name:</label>
-                <input type="text" value = {this.props.firstname} onChange={this.fnchange}/><br/>
-                <label>Last Name:</label>
-                <input type="text" value = {this.props.lastname} onChange={this.lnchange} /><br/>
-                <label>Sex:</label>
-                <input type="text" value = {this.props.sex} onChange={this.sexchange} /><br/>
-                <label>Age:</label>
-                <input type="text" value = {this.props.age} onChange={this.agechange}/><br/>
-                <label>Pwd:</label>
-                <input type="text" value = {this.props.pwd} onChange={this.pwdchange}/><br/>
-                <label>Pwd again:</label>
-                <input type="text" value = {this.props.pwd}/><br/>
-                <button onClick ={this.getUserInfo} >Save User</button>  
+            <div className="div-container">
+                <label className="labels">First Name:</label>
+                <input className="input-textboxes" type="text" value = {this.props.firstname} onChange={this.fnchange}/><br/>
+                <label className="labels">Last Name:</label>
+                <input className="input-textboxes" type="text" value = {this.props.lastname} onChange={this.lnchange} /><br/>
+                <label className="labels">Sex:</label>
+                <input className="input-textboxes" type="text" value = {this.props.sex} onChange={this.sexchange} /><br/>
+                <label className="labels">Age:</label>
+                <input className="input-textboxes" type="text" value = {this.props.age} onChange={this.agechange}/><br/>
+                <label className="labels">Pwd:</label>
+                <input className="input-textboxes" type="text" value = {this.props.pwd} onChange={this.pwdchange}/><br/>
+                <label className="labels">Pwd again:</label>
+                <input className="input-textboxes" type="text" value = {this.props.pwd}/><br/>
+                <button className="buttons" onClick ={this.getUserInfo} >Save User</button>  
             </div>
         );
     }

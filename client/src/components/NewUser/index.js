@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Link, Redirect} from 'react-router-dom';
-import * as actions from '../../Reducers';
+import * as actions from '../../actions';
 import {connect} from 'react-redux';
 
 class NewUser extends Component{
