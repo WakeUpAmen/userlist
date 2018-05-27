@@ -5,11 +5,11 @@ import {connect} from 'react-redux';
 
 class EditUser extends Component{
     componentWillMount=()=>{
-        this.props.getOneUserById("http://localhost:8888/api/userlist/"+this.props.match.params.userId, this.props.match.params.userId);
+        this.props.getOneUserById(this.props.match.params.userId);
     }
     getUserInfo = () => {
         let user ={firstname: this.props.firstname, lastname: this.props.lastname, sex: this.props.sex, age: this.props.age, pwd: this.props.pwd}
-        this.props.updateOneToServer("http://localhost:8888/api/userlist/"+this.props.match.params.userId, user);
+        this.props.updateOneToServer(this.props.match.params.userId, user);
     }
     fnchange=(e)=>{
         this.props.setFirstNameOnChange(e.target.value);
@@ -60,7 +60,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
     return({
-        updateOneToServer:(url, index) => {dispatch(actions.updateOneToServer(url, index))},
+        updateOneToServer:(id, index) => {dispatch(actions.updateOneToServer(id, index))},
         getOneUserById:(id) => {dispatch(actions.getOneUserById(id))},
         setFirstNameOnChange:(text)=>{dispatch(actions.setFirstNameOnChange(text))},
         setSexOnChange:(text) => {dispatch(actions.setSexOnChange(text))},

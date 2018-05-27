@@ -10,7 +10,7 @@ class NewUser extends Component{
     } 
     getUserInfo = () => {
         let user ={firstname: this.state.firstname, lastname: this.state.lastname, sex: this.state.sex, age: this.state.age, pwd: this.state.pwd}
-        this.props.addOneToServer("http://localhost:8888/api/userlist/", user);    
+        this.props.addOneToServer(user);    
     }
     fnchange=(e)=>{
         this.setState({firstname: e.target.value});
@@ -58,7 +58,7 @@ const mapStateToProps = state => {
 
 function mapDispatchToProps(dispatch) {
     return({
-        addOneToServer:(url, userdata) =>{ dispatch(actions.addOneToServer(url, userdata))},
+        addOneToServer:(userdata) =>{ dispatch(actions.addOneToServer(userdata))},
       })
 };
 

@@ -9,14 +9,14 @@ import {BrowserRouter, Route, Link, Switch, Redirect} from 'react-router-dom';
 class Home extends Component {
     componentDidMount(){
         console.log("home did mount")
-        this.props.getAllUsers("http://localhost:8888/api/userlist/");
+        this.props.getAllUsers();
     }
     handleFilterTextChange = (filterText) => {
         this.props.setFilterText(filterText);
     }
 
     deleteOneUser = (index)=>{
-        this.props.deleteOneUser("http://localhost:8888/api/userlist/"+index, index);
+        this.props.deleteOneUser(index);
     }
     setSort =(str)=>{
         this.props.setSort(str);
@@ -70,8 +70,8 @@ function mapDispatchToProps(dispatch) {
         addOnePage: () =>{dispatch(actions.pageIncrement)},
         minusOnepage:() =>{dispatch(actions.pageDecrement)},
         setSort:(str) =>{actions.setSort.str=str, dispatch(actions.setSort)},
-        getAllUsers: (url) =>{dispatch(actions.getAllUsersFromServer(url))},
-        deleteOneUser:(url, id) =>{dispatch(actions.deleteOneFromServer(url, id))},
+        getAllUsers: () =>{dispatch(actions.getAllUsersFromServer())},
+        deleteOneUser:(id) =>{dispatch(actions.deleteOneFromServer(id))},
       })
 };
 

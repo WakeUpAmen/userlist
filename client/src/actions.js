@@ -1,9 +1,9 @@
 import axios from 'axios';
 //async functions
-export function getAllUsersFromServer(url) {
+export function getAllUsersFromServer() {
     return (dispatch) => {
         dispatch(dataLoading(true));
-        axios.get(url)
+        axios.get("http://localhost:8888/api/userlist/")
         .then(response => {
             dispatch(getAll(response.data));
             dispatch(dataLoading(false));
@@ -15,13 +15,15 @@ export function getAllUsersFromServer(url) {
     }
 }
 
-export function getOneUserById(url, id) {
+export function getOneUserById(id) {
     return (dispatch) => {
         dispatch(dataLoading(true));
-        axios.get(url, {
+        axios.get("http://localhost:8888/api/userlist/"+id, {
             id: id
         })
         .then((response) => {
+            console.log("get user by id")
+            console.log(response.data)
             dispatch(getUserById(response.data));
             dispatch(dataLoading(false));
         })
@@ -32,11 +34,11 @@ export function getOneUserById(url, id) {
     }
 }
 
-export function addOneToServer(url, userdata) {
+export function addOneToServer(userdata) {
     return (dispatch) => {
         dispatch(dataLoading(true));
         dispatch(newUserCompleted(true));
-        axios.post(url, {
+        axios.post("http://localhost:8888/api/userlist/", {
             firstname: userdata.firstname,
             lastname: userdata.lastname,
             sex: userdata.sex,
@@ -54,11 +56,11 @@ export function addOneToServer(url, userdata) {
     }
 }
 
-export function updateOneToServer(url, userdata) {
+export function updateOneToServer(id, userdata) {
     return (dispatch) => {
         dispatch(dataLoading(true));
         dispatch(editUserCompleted(true));
-        axios.put(url, {
+        axios.put("http://localhost:8888/api/userlist/"+id, {
             _id : userdata._id,
             firstname: userdata.firstname,
             lastname: userdata.lastname,
@@ -78,11 +80,11 @@ export function updateOneToServer(url, userdata) {
     }
 }
 
-export function deleteOneFromServer(url, id) {
+export function deleteOneFromServer(id) {
     console.log(id);
     return (dispatch) => {
         dispatch(dataLoading(true));
-        axios.delete(url, {
+        axios.delete("http://localhost:8888/api/userlist/"+id, {
             id:id,
         })
         .then((response) => {
