@@ -5,6 +5,7 @@ import {createStore, applyMiddleware} from 'redux';
 
 const initialState ={
     users: [],
+    page: 1,
   };
 //reducer
 
@@ -35,6 +36,19 @@ export const myUserListR =(state = initialState, action)=>{
                 });
             }
             return {...state, users: arr5};
+        case 'SET_PAGE':
+            return {...state, page: action.page};
+            
+        case 'PAGE_INCREMENT':
+            if(state.page >= state.users.length / 5){
+                return state;
+            }
+            return {...state, page: state.page + 1};
+        case 'PAGE_DECREMENT':
+            if(state.page === 1){
+                return state;
+            }
+            return {...state, page: state.page - 1};
         default:
             return state;
     }

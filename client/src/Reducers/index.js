@@ -1,13 +1,11 @@
 import { combineReducers } from "redux";
 import myUserListR from "./myUserListR";
-import newUserR from "./newUserR";
-import pagesR from "./pagesR";
+import editUserR from "./editUserR";
 import searchBarR from "./searchBarR";
 
 const reducers = combineReducers({
     myUserListR,
-    newUserR,
-    pagesR,
+    editUserR,
     searchBarR
 });
 

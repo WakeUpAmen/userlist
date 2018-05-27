@@ -15,7 +15,7 @@ class EditUser extends Component{
         this.props.setFirstNameOnChange(e.target.value);
     }
     lnchange=(e)=>{
-        this.props.setLasttNameOnChange(e.target.value);
+        this.props.setLastNameOnChange(e.target.value);
     }
     sexchange=(e)=>{
         this.props.setSexOnChange(e.target.value);
@@ -49,10 +49,10 @@ class EditUser extends Component{
 
 const mapStateToProps = state => {
     return {
-        firstname: state.firstname,
-        lastname: state.lastname,
-        sex: state.sex,
-        age: state.age,
+        firstname: state.editUserR.firstname,
+        lastname: state.editUserR.lastname,
+        sex: state.editUserR.sex,
+        age: state.editUserR.age,
     }
 };
 
@@ -62,7 +62,7 @@ function mapDispatchToProps(dispatch) {
         getOneUserById:(id) => {dispatch(actions.getOneUserById(id))},
         setFirstNameOnChange:(text)=>{dispatch(actions.setFirstNameOnChange(text))},
         setSexOnChange:(text) => {dispatch(actions.setSexOnChange(text))},
-        setAgeChange:(text) => {dispatch(actions.setAgeOnChange(text))},
+        setAgeOnChange:(text) => {dispatch(actions.setAgeOnChange(text))},
         setLastNameOnChange:(text) => {dispatch(actions.setLastNameOnChange(text))},
         setPwdOnChange:(text) => {dispatch(actions.setPwdOnChange(text))},
       })

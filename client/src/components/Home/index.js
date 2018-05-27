@@ -48,16 +48,16 @@ const mapStateToProps = state => {
     console.log("home index")
     console.log(state.users)
     return {
-        users: state.users,
-        filterText: state.filterText,
-        page: state.page,
+        users: state.myUserListR.users,
+        filterText: state.searchBarR.filterText,
+        page: state.myUserListR.page,
     }
 };
 
 function mapDispatchToProps(dispatch) {
     console.log("home dispatch")
     return({
-        setFilterText:(text) =>{actions.setFilterText.text=text,dispatch(actions.setFilterText)},
+        setFilterText:(text) =>{dispatch(actions.setFilterText(text))},
         addOnePage: () =>{dispatch(actions.pageIncrement)},
         minusOnepage:() =>{dispatch(actions.pageDecrement)},
         setSort:(str) =>{actions.setSort.str=str, dispatch(actions.setSort)},

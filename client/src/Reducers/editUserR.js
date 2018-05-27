@@ -8,7 +8,7 @@ const initialState ={
   };
 //reducer
 
-export const newUserR =(state = initialState, action)=>{
+export const editUserR =(state = initialState, action)=>{
     switch(action.type){
         case 'SET_FIRSTNAMEONCHANGE':
             return {...state, firstname: action.text};
@@ -28,4 +28,4 @@ export const newUserR =(state = initialState, action)=>{
 }
 
 
-export default newUserR;
+export default editUserR;
