@@ -36,10 +36,13 @@ routerUsers.get('/userlist', (req, res) => {
 });
 
 routerUsers.get('/userlist/:users_id', (req, res) => {
+    console.log("get user by id")
+    console.log(req.params)
     Users.findById(req.params.users_id, (err, user) => {
         if (err) {
             res.send(err);
         }
+        console.log(user)
         res.json(user);
     });
 });
@@ -51,7 +54,6 @@ routerUsers.put('/userlist/:users_id', (req, res) => {
         }
         console.log("put")
         console.log(req.body)
-        user.id = req.body.id;
         user.firstname = req.body.firstname;  
         user.lastname = req.body.lastname;
         user.sex = req.body.sex;

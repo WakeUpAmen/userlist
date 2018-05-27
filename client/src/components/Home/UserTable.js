@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import UserRow from '.././UserRow';
+import UserRow from './UserRow';
 
 class UserTable extends Component {
     constructor(props){
@@ -30,7 +30,8 @@ class UserTable extends Component {
         });
 
         return (
-            <table>
+            <div className="div-container">
+            <table className="table-table">
                 <thead>
                     <tr>
                         <th>Edit</th>
@@ -43,6 +44,7 @@ class UserTable extends Component {
                 </thead>
                 <tbody>{rows.slice(start, end)}</tbody>
             </table>
+            </div>
         );
     }
 }

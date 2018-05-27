@@ -1,28 +1,16 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
+import * as actions from '../../Reducers';
+import {connect} from 'react-redux';
 
 class NewUser extends Component{
     constructor(props){
         super(props);
-        if(this.props.editFlag === true){
-            this.state ={_id: this.props._id, firstname: this.props.firstname, lastname :this.props.lastname, sex:this.props.sex, age:this.props.age, pwd: this.props.pwd, pwdcomfirm: this.props.pwd};
-        }else{
-            this.state ={firstname:"", lastname :"",sex:"",age:"", pwd:"", pwdcomfirm:""};
-        } 
-    }
-    
+        this.state ={firstname:"", lastname :"",sex:"",age:"", pwd:""};     
+    } 
     getUserInfo = () => {
-        if(this.state.pwd !== this.state.pwdcomfirm){
-            window.alert("pwd no match");
-            // return;
-        }
-        if(this.props.editFlag === true){
-            let user ={_id:this.state._id,firstname: this.state.firstname, lastname: this.state.lastname, sex: this.state.sex, age: this.state.age, pwd: this.state.pwd}
-            this.props.createNewUser(user);
-        }else{
-            let user ={firstname: this.state.firstname, lastname: this.state.lastname, sex: this.state.sex, age: this.state.age, pwd: this.state.pwd}
-            this.props.createNewUser(user);
-        }
+        let user ={firstname: this.state.firstname, lastname: this.state.lastname, sex: this.state.sex, age: this.state.age, pwd: this.state.pwd}
+        this.props.addOneToServer("http://localhost:8888/api/userlist/", user);    
     }
     fnchange=(e)=>{
         this.setState({firstname: e.target.value});
@@ -39,29 +27,36 @@ class NewUser extends Component{
     pwdchange=(e)=>{
         this.setState({pwd: e.target.value});
     }
-
-    pwdcomfirmchange=(e)=>{
-        this.setState({pwdcomfirm: e.target.value});
-    }
     render (){
         return(
-            <div class="div-container">
-                <label class="labels">First Name:</label>
-                <input class="input-textboxes" type="text" value = {this.state.firstname} onChange={this.fnchange}/><br/>
-                <label class="labels">Last Name:</label>
-                <input class="input-textboxes" type="text" value = {this.state.lastname} onChange={this.lnchange} /><br/>
-                <label class="labels">Sex:</label>
-                <input class="input-textboxes" type="text" value = {this.state.sex} onChange={this.sexchange} /><br/>
-                <label class="labels">Age:</label>
-                <input class="input-textboxes" type="text" value = {this.state.age} onChange={this.agechange}/><br/>
-                <label class="labels">Pwd:</label>
-                <input class="input-textboxes" type="text" value = {this.state.pwd} onChange={this.pwdchange}/><br/>
-                <label class="labels">Pwd again:</label>
-                <input class="input-textboxes" type="text" value = {this.state.pwdcomfirm} onChange={this.pwdcomfirmchange}/><br/>
-                <button class="buttons row-buttons" onClick ={this.getUserInfo} ><Link to="/">Add User</Link></button>  
-                {/* <button class="buttons row-buttons" onClick ={this.getUserInfo} >Add User</button>   */}
+            <div className="div-container">
+                <label className="labels">First Name:</label>
+                <input className="input-textboxes" type="text" value = {this.state.firstname} onChange={this.fnchange}/><br/>
+                <label className="labels">Last Name:</label>
+                <input className="input-textboxes" type="text" value = {this.state.lastname} onChange={this.lnchange} /><br/>
+                <label className="labels">Sex:</label>
+                <input className="input-textboxes" type="text" value = {this.state.sex} onChange={this.sexchange} /><br/>
+                <label className="labels">Age:</label>
+                <input className="input-textboxes" type="text" value = {this.state.age} onChange={this.agechange}/><br/>
+                <label className="labels">Pwd:</label>
+                <input className="input-textboxes" type="text" value = {this.state.pwd} onChange={this.pwdchange}/><br/>
+                <label className="labels">Pwd again:</label>
+                <input className="input-textboxes" type="text" value = {this.state.pwd}/><br/>
+                <button className="buttons" onClick ={this.getUserInfo} >Add User</button>  
+                {/* <Redirect to={{pathname: '/'}} /> */}
             </div>
         );
     }
-  }
-export default NewUser;
+}
+
+const mapStateToProps = state => {
+    return {}
+};
+
+function mapDispatchToProps(dispatch) {
+    return({
+        addOneToServer:(url, userdata) =>{ dispatch(actions.addOneToServer(url, userdata))},
+      })
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewUser);

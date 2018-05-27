@@ -3,7 +3,6 @@ var mongoose     = require('mongoose');
 var Schema       = mongoose.Schema;
 
 var UserListSchema   = new Schema({
-    // id: String,
     firstname: String,
 	lastname: String,
     sex: String,
