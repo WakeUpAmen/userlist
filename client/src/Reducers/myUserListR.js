@@ -11,8 +11,8 @@ const initialState ={
     editUserCompleted: false,
     newUserCompleted: false,
   };
+  
 //reducer
-
 export const myUserListR =(state = initialState, action)=>{
     switch(action.type){       
         case 'GET_ALL':
@@ -26,26 +26,20 @@ export const myUserListR =(state = initialState, action)=>{
         case 'NEWUSER_COMPLETED':
             return {...state, newUserCompleted: action.val};
         case 'SET_SORT':
-            let arr5 = [];
+            let arr = [];
             state.users.forEach(element => {
-                arr5.push(element);
+                arr.push(element);
             });
             if(action.str === "age"){
-                arr5.sort((a, b)=> a[action.str]-b[action.str])
+                arr.sort((a, b)=> a[action.str]-b[action.str])
             }else{
-                arr5.sort(function(a, b) {
+                arr.sort(function(a, b) {
                     var nameA = a[action.str].toUpperCase(); // ignore upper and lowercase
                     var nameB = b[action.str].toUpperCase(); // ignore upper and lowercase
-                    if (nameA < nameB) {
-                    return -1;
-                    }
-                    if (nameA > nameB) {
-                    return 1;
-                    }
-                    return 0;
+                    nameA < nameB ? -1: (nameA > nameB? 1: 0)
                 });
             }
-            return {...state, users: arr5};
+            return {...state, users: arr};
         case 'SET_PAGE':
             return {...state, page: action.page};
             

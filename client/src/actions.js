@@ -37,7 +37,6 @@ export function getOneUserById(id) {
 export function addOneToServer(userdata) {
     return (dispatch) => {
         dispatch(dataLoading(true));
-        dispatch(newUserCompleted(true));
         axios.post("http://localhost:8888/api/userlist/", {
             firstname: userdata.firstname,
             lastname: userdata.lastname,
@@ -46,7 +45,7 @@ export function addOneToServer(userdata) {
             pwd: userdata.pwd,
         })
         .then((response) => {
-            dispatch(newUserCompleted(false));
+            dispatch(newUserCompleted(true));
             dispatch(dataLoading(false));
         })
         .catch(err => {
@@ -59,7 +58,6 @@ export function addOneToServer(userdata) {
 export function updateOneToServer(id, userdata) {
     return (dispatch) => {
         dispatch(dataLoading(true));
-        dispatch(editUserCompleted(true));
         axios.put("http://localhost:8888/api/userlist/"+id, {
             _id : userdata._id,
             firstname: userdata.firstname,
@@ -70,7 +68,7 @@ export function updateOneToServer(id, userdata) {
         })
         .then((response) => {
             console.log(response.data);
-            dispatch(editUserCompleted(false));
+            dispatch(editUserCompleted(true));
             dispatch(dataLoading(false));
         })
         .catch(err => {

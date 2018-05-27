@@ -10,6 +10,9 @@ class Home extends Component {
     componentDidMount(){
         console.log("home did mount")
         this.props.getAllUsers();
+        this.props.editUserCompleted(false);
+        this.props.editUserCompleted(false);
+    
     }
     handleFilterTextChange = (filterText) => {
         this.props.setFilterText(filterText);
@@ -72,6 +75,8 @@ function mapDispatchToProps(dispatch) {
         setSort:(str) =>{actions.setSort.str=str, dispatch(actions.setSort)},
         getAllUsers: () =>{dispatch(actions.getAllUsersFromServer())},
         deleteOneUser:(id) =>{dispatch(actions.deleteOneFromServer(id))},
+        editUserCompleted:(val) =>{dispatch(actions.editUserCompleted(val))},
+        newUserCompleted:(val) => {dispatch(actions.newUserCompleted(val))},
       })
 };
 
