@@ -26,7 +26,8 @@ class UserTable extends Component {
                                 _id ={user._id} 
                                 firstname ={user.firstname}
                                 lastname ={user.lastname} 
-                                sex = {user.sex} age={user.age}/>
+                                sex = {user.sex} age={user.age}
+                                deleteUserCompleted={this.props.deleteUserCompleted}/>
                 );
             } 
         });

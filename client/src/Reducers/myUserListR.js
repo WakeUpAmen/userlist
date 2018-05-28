@@ -10,11 +10,14 @@ const initialState ={
     dataLoading: false,
     editUserCompleted: false,
     newUserCompleted: false,
+    deleteUserCompleted: false,
   };
   
 //reducer
 export const myUserListR =(state = initialState, action)=>{
-    switch(action.type){       
+    switch(action.type){ 
+        case 'DELETE_USER':
+            return {...state, users: state.users.filter(user=>user._id !== action.index)}      
         case 'GET_ALL':
             return {...state, users: action.data};
         case 'DATA_LOADING':
@@ -25,21 +28,29 @@ export const myUserListR =(state = initialState, action)=>{
             return {...state, editUserCompleted: action.val};
         case 'NEWUSER_COMPLETED':
             return {...state, newUserCompleted: action.val};
+        case 'DELETEUSER_COMPLETED':
+            return {...state, deleteUserCompleted: action.val}
         case 'SET_SORT':
-            let arr = [];
+            let arr5 = [];
             state.users.forEach(element => {
-                arr.push(element);
+                arr5.push(element);
             });
             if(action.str === "age"){
-                arr.sort((a, b)=> a[action.str]-b[action.str])
+                arr5.sort((a, b)=> a[action.str]-b[action.str])
             }else{
-                arr.sort(function(a, b) {
+                arr5.sort(function(a, b) {
                     var nameA = a[action.str].toUpperCase(); // ignore upper and lowercase
                     var nameB = b[action.str].toUpperCase(); // ignore upper and lowercase
-                    nameA < nameB ? -1: (nameA > nameB? 1: 0)
+                    if (nameA < nameB) {
+                    return -1;
+                    }
+                    if (nameA > nameB) {
+                    return 1;
+                    }
+                    return 0;
                 });
             }
-            return {...state, users: arr};
+            return {...state, users: arr5};
         case 'SET_PAGE':
             return {...state, page: action.page};
             

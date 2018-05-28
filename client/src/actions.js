@@ -87,6 +87,8 @@ export function deleteOneFromServer(id) {
         })
         .then((response) => {
             console.log(response.data);
+            dispatch(deleteUserCompleted(true));
+            dispatch(deleteUser(id));
             dispatch(dataLoading(false));
         })
         .catch(err => {
@@ -161,4 +163,14 @@ export const editUserCompleted =val=>({
 export const newUserCompleted =val=>({
     type: 'NEWUSER_COMPLETED',
     val
+})
+
+export const deleteUserCompleted =val =>({
+    type: 'DELETEUSER_COMPLETED',
+    val
+})
+
+export const deleteUser =index =>({
+    type: 'DELETE_USER',
+    index,
 })

@@ -43,7 +43,7 @@ class NewUser extends Component{
                 <label className="labels">Pwd again:</label>
                 <input className="input-textboxes" type="text" value = {this.state.pwd}/><br/>
                 <button className="buttons" onClick ={this.getUserInfo} >Add User</button>  
-                {this.props.newUserCompleted && <Redirect to={{pathname: '/'}}/>}
+                {this.props.newUserCompleted && <Redirect to={{pathname: '/', state: {from: this.props.location} }}/>}
             </div>
         );
     }

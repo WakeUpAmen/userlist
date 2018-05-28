@@ -20,6 +20,8 @@ routerUsers.post('/userlist', (req, res) => {
         if (err) {
             res.status(500).json({ error: err });
         }
+        res.json({ message: 'User create!' });
+
     });
         
 });
@@ -29,7 +31,7 @@ routerUsers.get('/userlist', (req, res) => {
         if (err) {
             res.status(500).json({ error: err });
         } else {
-            res.status(200).json({users});
+            res.status(200).json(users);
         }
     });
 });
@@ -41,7 +43,7 @@ routerUsers.get('/userlist/:users_id', (req, res) => {
         if (err) {
             res.status(500).json({ error: err });
         } else {
-            res.status(200).json({user});
+            res.status(200).json(user);
         }
     });
 });

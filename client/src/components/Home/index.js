@@ -11,7 +11,8 @@ class Home extends Component {
         console.log("home did mount")
         this.props.getAllUsers();
         this.props.editUserCompleted(false);
-        this.props.editUserCompleted(false);
+        this.props.newUserCompleted(false);
+        // this.props.deleteUserCompleted(false);
     
     }
     handleFilterTextChange = (filterText) => {
@@ -46,6 +47,7 @@ class Home extends Component {
                     lnsort ={this.setSort}
                     sexsort={this.setSort}
                     agesort={this.setSort}
+                    // deleteUserCompleted={this.props.deleteUserCompleted}
                 />
                 <Pages minusOnepage = {this.props.minusOnepage} addOnePage = {this.props.addOnePage} pre = {this.props.pre} older = {this.props.older}/>
                 <button className="buttons" ><Link to="/newuser">Cerate new user</Link></button>
@@ -63,6 +65,7 @@ const mapStateToProps = state => {
         page: state.myUserListR.page,
         hasErrored: state.myUserListR.hasError,
         dataLoading: state.myUserListR.dataLoading,
+        deleteUserCompleted: state.deleteUserCompleted,
     }
 };
 
@@ -77,6 +80,7 @@ function mapDispatchToProps(dispatch) {
         deleteOneUser:(id) =>{dispatch(actions.deleteOneFromServer(id))},
         editUserCompleted:(val) =>{dispatch(actions.editUserCompleted(val))},
         newUserCompleted:(val) => {dispatch(actions.newUserCompleted(val))},
+        // deleteUserCompleted: (val) => {dispatch(actions.deleteUserCompleted(val))},
       })
 };
 
