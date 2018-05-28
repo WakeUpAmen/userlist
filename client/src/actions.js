@@ -106,10 +106,10 @@ export const setFilterText =text=>({
     type: 'SET_FILTERTEXT', 
     text
 });
-export const setPage=page=>({
-    type: 'SET_PAGE', 
-    page
-});
+// export const setPage=page=>({
+//     type: 'SET_PAGE', 
+//     page
+// });
 export const getUserById = userinfo =>({
     type: 'GETUSER_BYID',
     userinfo
@@ -173,4 +173,9 @@ export const deleteUserCompleted =val =>({
 export const deleteUser =index =>({
     type: 'DELETE_USER',
     index,
+})
+
+export const getPageUsers=(page)=>({
+    type: 'GET_PAGEUSERS',
+    page
 })

@@ -12,6 +12,7 @@ class Home extends Component {
         this.props.getAllUsers();
         this.props.editUserCompleted(false);
         this.props.newUserCompleted(false);
+        console.log(this.props.pageUsers)
         // this.props.deleteUserCompleted(false);
     
     }
@@ -24,6 +25,9 @@ class Home extends Component {
     }
     setSort =(str)=>{
         this.props.setSort(str);
+    }
+    getPageUsers=(page)=>{
+        this.props.getPageUsers(page);
     }
     render() {
         console.log("home render")
@@ -38,7 +42,7 @@ class Home extends Component {
             <div className="div-container">
                 <SearchBar filterText={this.props.filterText} onFilterTextChange={this.handleFilterTextChange}/>
                 <UserTable
-                    users={this.props.users}
+                    users={this.props.pageUsers}
                     filterText={this.props.filterText}
                     deleteOneUser={this.deleteOneUser}
                     itemNum = {5}
@@ -49,7 +53,13 @@ class Home extends Component {
                     agesort={this.setSort}
                     // deleteUserCompleted={this.props.deleteUserCompleted}
                 />
-                <Pages minusOnepage = {this.props.minusOnepage} addOnePage = {this.props.addOnePage} pre = {this.props.pre} older = {this.props.older}/>
+                <Pages 
+                    minusOnepage = {this.props.minusOnepage} 
+                    addOnePage = {this.props.addOnePage} 
+                    page = {this.props.page} 
+                    pages={this.props.filteredUsers.length/5 == Math.floor(this.props.filteredUsers.length/5)? this.props.filteredUsers.length/5 : Math.floor(this.props.filteredUsers.length/5)+ 1}
+                    getPageUsers={this.getPageUsers}
+                />
                 <button className="buttons" ><Link to="/newuser">Cerate new user</Link></button>
             </div>
         );
@@ -61,7 +71,9 @@ const mapStateToProps = state => {
     console.log(state.users)
     return {
         users: state.myUserListR.users,
-        filterText: state.searchBarR.filterText,
+        filteredUsers: state.myUserListR.filteredUsers,
+        pageUsers: state.myUserListR.pageUsers,
+        filterText: state.myUserListR.filterText,
         page: state.myUserListR.page,
         hasErrored: state.myUserListR.hasError,
         dataLoading: state.myUserListR.dataLoading,
@@ -80,6 +92,7 @@ function mapDispatchToProps(dispatch) {
         deleteOneUser:(id) =>{dispatch(actions.deleteOneFromServer(id))},
         editUserCompleted:(val) =>{dispatch(actions.editUserCompleted(val))},
         newUserCompleted:(val) => {dispatch(actions.newUserCompleted(val))},
+        getPageUsers:(page)=>{dispatch(actions.getPageUsers(page))},
         // deleteUserCompleted: (val) => {dispatch(actions.deleteUserCompleted(val))},
       })
 };

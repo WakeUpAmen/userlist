@@ -10,16 +10,16 @@ class UserTable extends Component {
     }
 
     render() {
-        const filterText = this.props.filterText;
-        let num = this.props.itemNum;
-        let page = this.props.page;
+        // const filterText = this.props.filterText;
+        // let num = this.props.itemNum;
+        // let page = this.props.page;
         const rows = [];
-        let start = (page - 1) * 5;
-        let end = page * 5;
+        // let start = (page - 1) * 5;
+        // let end = page * 5;
         console.log("table users")
         console.log(this.props.users)
         this.props.users.forEach((user) => {
-            if (user.firstname.indexOf(filterText) !== -1 ) {
+            // if (user.firstname.indexOf(filterText) !== -1 ) {
                 rows.push( <UserRow 
                                 editRow={this.props.editRowCallBack} 
                                 deleteRow ={this.props.deleteOneUser} 
@@ -29,7 +29,7 @@ class UserTable extends Component {
                                 sex = {user.sex} age={user.age}
                                 deleteUserCompleted={this.props.deleteUserCompleted}/>
                 );
-            } 
+            // } 
         });
 
         return (
@@ -45,7 +45,7 @@ class UserTable extends Component {
                         <th onClick ={() => this.props.agesort("age")} >Age</th>
                     </tr>
                 </thead>
-                <tbody>{rows.slice(start, end)}</tbody>
+                <tbody>{rows}</tbody>
             </table>
             </div>
         );

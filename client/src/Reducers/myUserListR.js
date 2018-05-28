@@ -5,21 +5,24 @@ import {createStore, applyMiddleware} from 'redux';
 
 const initialState ={
     users: [],
+    filteredUsers: [],
+    pageUsers: [],
     page: 1,
     hasError: false,
     dataLoading: false,
     editUserCompleted: false,
     newUserCompleted: false,
     deleteUserCompleted: false,
+    filterText: '',
   };
   
 //reducer
 export const myUserListR =(state = initialState, action)=>{
     switch(action.type){ 
         case 'DELETE_USER':
-            return {...state, users: state.users.filter(user=>user._id !== action.index)}      
+            return {...state, users: state.users.filter(user=>user._id !== action.index) }      
         case 'GET_ALL':
-            return {...state, users: action.data};
+            return {...state, users: action.data, filteredUsers: action.data, pageUsers: action.data.slice(0, 5)};
         case 'DATA_LOADING':
             return {...state, dataLoading: action.val}
         case 'GETDATA_ERROR':
@@ -32,7 +35,7 @@ export const myUserListR =(state = initialState, action)=>{
             return {...state, deleteUserCompleted: action.val}
         case 'SET_SORT':
             let arr5 = [];
-            state.users.forEach(element => {
+            state.filteredUsers.forEach(element => {
                 arr5.push(element);
             });
             if(action.str === "age"){
@@ -50,20 +53,24 @@ export const myUserListR =(state = initialState, action)=>{
                     return 0;
                 });
             }
-            return {...state, users: arr5};
-        case 'SET_PAGE':
-            return {...state, page: action.page};
+            return {...state, filteredUsers: arr5};
+        // case 'SET_PAGE':
+        //     return {...state, page: action.page};
             
         case 'PAGE_INCREMENT':
-            if(state.page >= state.users.length / 5){
+            if(state.page >= state.filteredUsers.length / 5){
                 return state;
             }
-            return {...state, page: state.page + 1};
+            return {...state, page: state.page + 1, pageUsers: state.filteredUsers.slice((state.page) * 5, (state.page) * 5+5)};
         case 'PAGE_DECREMENT':
             if(state.page === 1){
                 return state;
             }
-            return {...state, page: state.page - 1};
+            return {...state, page: state.page - 1, pageUsers: state.filteredUsers.slice((state.page - 2) * 5, (state.page - 2) * 5+5)};
+        case 'SET_FILTERTEXT':
+            return {...state, filterText: action.text, filteredUsers: state.users.filter(user=>user.firstname.indexOf(action.text) !== -1)};
+        case 'GET_PAGEUSERS':
+            return {...state, page:action.page, pageUsers: state.filteredUsers.slice((action.page -1) * 5, (action.page-1) * 5+5)}
         default:
             return state;
     }

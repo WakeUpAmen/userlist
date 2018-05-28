@@ -46,7 +46,7 @@
 }
 
 /* buttons */
-.buttons {
+/* .buttons {
   border-top: 1px solid #96d1f8;
   background: #65a9d7;
   background: -webkit-gradient(linear, left top, left bottom, from(#3e779d), to(#65a9d7));
@@ -76,7 +76,7 @@
 .buttons:active {
   border-top-color: #1b435e;
   background: #1b435e;
-}
+} */
 /* div container */
 .div-container {
   background: rgb(163, 168, 135);
